@@ -2,7 +2,7 @@
   "name": "my-electron-app",
   "version": "1.0.0",
   "description": "hm-electron-app",
-  "main": "main.js",
+  "main": "main.ts",
   "author": "sunny",
   "license": "MIT",
   "scripts": {

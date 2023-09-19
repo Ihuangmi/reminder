@@ -11,11 +11,23 @@
   </head>
   <body>
     <h1>你好!</h1>
-    我们正在使用 Node.js <span id="node-version"></span>, Chromium
-    <span id="chrome-version"></span>, 和 Electron
-    <span id="electron-version"></span>.
+
+    <p id="info"></p>
+    <br />
+
+    Title: <input id="title" />
+    <button id="btn" type="button">Set</button>
+    <br />
+
+    <button type="button" id="btn2">Open a File</button>
+    File path: <strong id="filePath"></strong>
+    <br />
+
+    <!-- <button type="button" id="btn3">+1</button>
+    <button type="button" id="btn4">-1</button> -->
+    Current value: <strong id="counter">0</strong>
 
     <!-- 您也可以此进程中运行其他文件  -->
-    <!-- <script src="./renderer.js"></script> -->
+    <script src="./renderer.js"></script>
   </body>
 </html>
