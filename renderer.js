@@ -26,10 +26,11 @@ btn.addEventListener("click", async () => {
 
 // 计数器
 const counter = document.getElementById("counter");
-
+// 3.4、调用主进程事件函数修改UI
 window.electronAPI.onUpdateCounter((event, value) => {
   const oldValue = Number(counter.innerText);
   const newValue = oldValue + value;
   counter.innerText = newValue;
+  // 3.5、传递数据给主进程
   event.sender.send("counter-value", newValue);
 });

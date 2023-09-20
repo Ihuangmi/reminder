@@ -12,12 +12,13 @@ const createWindow = () => {
     },
   });
 
-  // 构建一个自定义菜单
+  // 3.1、 构建一个自定义菜单
   const menu = Menu.buildFromTemplate([
     {
-      label: app.name,
+      label: "计数器",
       submenu: [
         {
+          // 3.2、点击计数器，发送消息给渲染进程
           click: () => mainWindow.webContents.send("update-counter", 1),
           label: "加1",
         },
@@ -68,6 +69,7 @@ app.whenReady().then(() => {
 
   ipcMain.handle("dialog:openFile", handleFileOpen);
 
+  // 3.6、接受渲染进程数据并打印
   ipcMain.on("counter-value", (_event, value) => {
     console.log(value); // will print value to Node console
   });

@@ -13,7 +13,9 @@ contextBridge.exposeInMainWorld("versions", {
 });
 
 contextBridge.exposeInMainWorld("electronAPI", {
+  // 通过 channel 向主过程发送消息，并异步等待结果
   openFile: () => ipcRenderer.invoke("dialog:openFile"),
   setTitle: (title) => ipcRenderer.send("set-title", title),
+  // 3.3、注册主进程监听事件函数
   onUpdateCounter: (callback) => ipcRenderer.on("update-counter", callback),
 });
