@@ -18,4 +18,17 @@ contextBridge.exposeInMainWorld("electronAPI", {
   setTitle: (title) => ipcRenderer.send("set-title", title),
   // 3.3、注册主进程监听事件函数
   onUpdateCounter: (callback) => ipcRenderer.on("update-counter", callback),
+  closeMain: () => ipcRenderer.send("mainWindow:close"),
+  closeRemind: () => ipcRenderer.send("remindWindow:close"),
+  setTaskTimer: (time, name) => ipcRenderer.send("set-TaskTimer", time, name),
+  setTask: (callback) => ipcRenderer.on("set-Task", callback),
 });
+
+// ipcRenderer.on('port', e => {
+//   // 接收到端口，使其全局可用。
+//   window.electronMessagePort = e.ports[0]
+
+//   window.electronMessagePort.onmessage = messageEvent => {
+//     // 处理消息
+//   }
+// })
