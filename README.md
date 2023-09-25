@@ -1,4 +1,4 @@
-# reminder-
+# reminder
 ## 这是一个 electron 练习项目
 
 ## 功能
