@@ -1,7 +1,7 @@
 {
-  "name": "my-electron-app",
+  "name": "reminder",
   "version": "1.0.0",
-  "description": "hm-electron-app",
+  "description": "A real-time reminder APP",
   "main": "main.ts",
   "author": "sunny",
   "license": "MIT",
