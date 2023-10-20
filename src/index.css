@@ -11,10 +11,12 @@ body {
 
 body {
   display: flex;
-  /* -webkit-app-region: drag; */
+  /* 允许拖动窗口 */
+  -webkit-app-region: drag;
 }
 
 .enable-click {
+  /* 不允许拖动窗口 */
   -webkit-app-region: no-drag;
 }
 

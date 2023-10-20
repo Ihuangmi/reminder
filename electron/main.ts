@@ -11,17 +11,33 @@ const {
 } = require("electron");
 const path = require("path");
 
-const iconPath = path.join(__dirname, "./src/img/icon.png");
+const iconPath = path.join(__dirname, "./icon.png");
 
-let tray, mainWindow, remindWindow;
+let tray, mainWindow, remindWindow, updateWindow;
 
 // 创建浏览窗口
 const createWindow = () => {
+  // 创建更新界面
+  if (app.isPackaged) {
+    updateWindow = new BrowserWindow({
+      width: 800,
+      height: 360,
+      frame: false, // 无边框（窗口、工具栏等），只包含网页内容
+      transparent: true, // 窗口是否支持透明，如果想做高级效果最好为true
+      webPreferences: {
+        preload: path.join(__dirname, "preload.ts"),
+        webSecurity: false,
+      },
+    });
+
+    updateWindow.loadFile(path.join(process.env.DIST, "update.html"));
+  }
+
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
     icon: iconPath,
-    resizable: false, // 不允许用户改变窗口大小
+    // resizable: false, // 不允许用户改变窗口大小
     frame: false, // 去掉默认边框
     webPreferences: {
       preload: path.join(__dirname, "preload.ts"),
@@ -30,26 +46,7 @@ const createWindow = () => {
   });
 
   // 去掉菜单栏
-  mainWindow.removeMenu();
-
-  // 3.1、 构建一个自定义菜单
-  // const menu = Menu.buildFromTemplate([
-  //   {
-  //     label: "计数器",
-  //     submenu: [
-  //       {
-  //         // 3.2、点击计数器，发送消息给渲染进程
-  //         click: () => mainWindow.webContents.send("update-counter", 1),
-  //         label: "加1",
-  //       },
-  //       {
-  //         click: () => mainWindow.webContents.send("update-counter", -1),
-  //         label: "减1",
-  //       },
-  //     ],
-  //   },
-  // ]);
-  // Menu.setApplicationMenu(menu);
+  // mainWindow.removeMenu();
 
   // 加载 index.html
   mainWindow.loadFile("src/index.html");
@@ -124,6 +121,8 @@ app.whenReady().then(() => {
   ipcMain.on("counter-value", (_event, value) => {
     console.log(value); // will print value to Node console
   });
+
+  handleUpdate(mainWindow);
 });
 
 // 创建系统提醒窗口
